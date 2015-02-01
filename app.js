@@ -1,7 +1,7 @@
 
 // Your accountSid and authToken from twilio.com/user/account
 var accountSid = 'ACfe2ccf1f441035f831fb78424bf4568e';
-var authToken = '2e8e0735adf141b6f55c39ef963152d2';
+var authToken = '[Authorization Code]';
 var client = require('twilio')(accountSid, authToken);
 var unirest = require('unirest');
 var express = require("express");
@@ -81,7 +81,7 @@ app.get("/test", function (req, res) {
 				console.log(input);
 				client.messages.create({
 							body: input + " error",
-							to: "+16476187893",
+							to: "+1 personal-number",
 							from: "+16476910582"
 					}, function(err, message) {
 						console.log(err);

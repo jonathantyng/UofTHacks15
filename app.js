@@ -78,7 +78,7 @@ app.get("/test", function (req, res) {
 				client.messages.create({
 							body: "Your song was not found! :c",
 							to: input,
-							from: "+1 [Twilio-number]"
+							from: twilioNumber
 					}, function(err2, message) {
 						console.log("error: " + err2);
 							//process.stdout.write(message.sid);

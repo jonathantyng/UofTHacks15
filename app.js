@@ -94,7 +94,7 @@ app.get("/test", function (req, res) {
 		else {
 			client.messages.create({
 				body: input + " error",
-				to: "+1 [personal-number]",
+				to: input,
 				from: twilioNumber
 			}, function(err, message) {
 				console.log(err);

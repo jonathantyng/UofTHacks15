@@ -51,9 +51,12 @@ app.get("/test", function (req, res) {
 	.header("X-Mashape-Key", "mpRdHHU7R9mshNH0entzFSW4Akttp1ScydejsnKby6lb2BoCeY")
 	.header("Accept", "text/plain")
 	.end(function (result) {
+		var isError = false;
+		
 		// Song is not found
 		if (result === null || result.body.total <= 0 || result.body.data[0].preview === null) {
 			twiml2 = rickroll;
+			isError = true;
 		}
 		// Song is found
 		else {
@@ -75,6 +78,7 @@ app.get("/test", function (req, res) {
 				console.log(call.sid);
 				
 				// Sends the user a text message if the song was not found
+				if (isError){
 				client.messages.create({
 							body: "Your song was not found! :c",
 							to: input,
@@ -83,6 +87,7 @@ app.get("/test", function (req, res) {
 						console.log("error: " + err2);
 							//process.stdout.write(message.sid);
 					});
+				}
 			});
 		} 
 		// Send an error message

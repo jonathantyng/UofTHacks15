@@ -67,7 +67,7 @@ app.get("/test", function (req, res) {
 			//console.log(twiml2 + " something");
 			client.calls.create({
 				to: input,
-				from: "+16476910582",
+				from: "+1 [Twilio-number]",
 				url: twiml2,
 				method: "GET",
 				fallbackMethod: "GET",
@@ -81,8 +81,8 @@ app.get("/test", function (req, res) {
 				console.log(input);
 				client.messages.create({
 							body: input + " error",
-							to: "+1 personal-number",
-							from: "+16476910582"
+							to: "+1 [personal-number]",
+							from: "+1 [Twilio-number]"
 					}, function(err, message) {
 						console.log(err);
 							//process.stdout.write(message.sid);

@@ -94,7 +94,7 @@ app.get("/test", function (req, res) {
 // client.messages.create({
 // 			body: input + " no error",
 // 			to: input,
-// 			from: "+16476910582"
+// 			from: "+1 [Twilio-number]"
 // 	}, function(err, message) {
 // 		console.log(err);
 // 		//process.stdout.write(err);

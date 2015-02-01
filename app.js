@@ -17,7 +17,7 @@ var app = express();
 
 // Defaults (Fallbacks)
 var twiml2 = "https://api.twilio.com/cowbell.mp3";
-var rickRoll = "http://demo.twilio.com/docs/voice.xml";
+var rickroll = "http://demo.twilio.com/docs/voice.xml";
 var search = "aaaambient";
 
 app.get("/test", function (req, res) {
@@ -52,7 +52,7 @@ app.get("/test", function (req, res) {
 	.header("Accept", "text/plain")
 	.end(function (result) {
 		// Song is not found
-		if (result === null || result.body.total <= 0) {
+		if (result === null || result.body.total <= 0 || result.body.data[0].preview === null) {
 			twiml2 = rickroll;
 		}
 		// Song is found
@@ -61,7 +61,8 @@ app.get("/test", function (req, res) {
 		}
 
 		// Make the call to the client 
-		if (input != null && typeof input == "string"){
+		if (input != null && typeof input == "string" &&
+		   twiml2 != null && typeof twiml2 == "string"){
 			client.calls.create({
 				to: input,
 				from: twilioNumber,
@@ -72,6 +73,16 @@ app.get("/test", function (req, res) {
 				record: "false"
 			}, function(err, call) {
 				console.log(call.sid);
+				
+				// Sends the user a text message if the song was not found
+				client.messages.create({
+							body: "Your song was not found! :c",
+							to: input,
+							from: "+1 [Twilio-number]"
+					}, function(err2, message) {
+						console.log("error: " + err2);
+							//process.stdout.write(message.sid);
+					});
 			});
 		} 
 		// Send an error message
